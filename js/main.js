@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   };
 
-  // コンテンツを生成する
+  // コンテンツを新しく生成する
   const createItems = function (val) {
     const item = document.createElement('div');
     item.className = 'item';
@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
       container.appendChild(fragment);
     });
 
-  btnCorn.addEventListener('click', function () {
+  // コンテンツの更新(削除と追加)
+  const updateItem = function (name) {
     removeItems();
 
     fetch(JSONImgPath)
@@ -50,12 +51,16 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .then((jsonData) => {
         const cornArray = jsonData.filter((val) => {
-          return val['type'] === 'corn';
+          return val['type'] === `${name}`;
         });
         cornArray.forEach((val) => {
           createItems(val);
         });
         container.appendChild(fragment);
       });
+  };
+
+  btnCorn.addEventListener('click', function () {
+    updateItem('corn');
   });
 });
