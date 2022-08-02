@@ -29,17 +29,20 @@ document.addEventListener('DOMContentLoaded', function () {
     item.appendChild(img);
   };
 
-  // 最初の読み込み時はすべての画像表示
-  fetch(JSONImgPath)
-    .then((response) => {
-      return response.json();
-    })
-    .then((jsonData) => {
-      jsonData.forEach((val) => {
-        createItems(val);
+  // すべてのコンテンツを表示する
+  const viewAllItems = function () {
+    removeItems();
+    fetch(JSONImgPath)
+      .then((response) => {
+        return response.json();
+      })
+      .then((jsonData) => {
+        jsonData.forEach((val) => {
+          createItems(val);
+        });
+        container.appendChild(fragment);
       });
-      container.appendChild(fragment);
-    });
+  };
 
   // コンテンツの更新(削除と追加)
   const updateItem = function (name) {
@@ -60,7 +63,30 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   };
 
+  // 最初の読み込み時はすべての画像表示
+  viewAllItems();
+
+  btnAll.addEventListener('click', function () {
+    viewAllItems();
+  });
+
   btnCorn.addEventListener('click', function () {
     updateItem('corn');
+  });
+
+  btnCucumber.addEventListener('click', function () {
+    updateItem('cucumber');
+  });
+
+  btnTomato.addEventListener('click', function () {
+    updateItem('tomato');
+  });
+
+  btnEggplant.addEventListener('click', function () {
+    updateItem('eggplant');
+  });
+
+  btnGreenpepper.addEventListener('click', function () {
+    updateItem('greenpepper');
   });
 });
